@@ -1,0 +1,22 @@
+.app-shell {
+  min-height: 100vh;
+  --primary: #2563EB;
+  --secondary: #1D4ED8;
+  --accent: #38BDF8;
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --text: #0F172A;
+  --muted: #64748B;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.app-shell.dark {
+  --primary: #3B82F6;
+  --secondary: #60A5FA;
+  --accent: #7DD3FC;
+  --bg: #0F172A;
+  --surface: #111827;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+}

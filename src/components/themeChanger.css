@@ -1,0 +1,52 @@
+.theme {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    gap: 0.5em;
+}
+
+.bg {
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+.pri {
+    background-color: var(--primary);
+    color: var(--text);
+}
+
+.sec {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+.acc {
+    background-color: var(--accent);
+    color: var(--bg);
+}
+
+.sur {
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+.txt {
+    background-color: var(--text);
+    color: var(--bg);
+}
+
+.mut {
+    background-color: var(--muted);
+    color: var(--bg);
+}
+
+.acc,
+.bg,
+.mut,
+.pri,
+.sec,
+.sur,
+.txt {
+    flex: 1;
+}
