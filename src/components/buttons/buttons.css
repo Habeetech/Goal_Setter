@@ -1,0 +1,90 @@
+.pry-btn,
+.sec-btn,
+.txt-btn {
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pry-btn:disabled,
+.sec-btn:disabled,
+.txt-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+}
+
+.pry-btn,
+.sec-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    transition: background-color 0.5s ease-in-out;
+    border-radius: 10px;
+}
+
+.pry-btn {
+    background-color: var(--primary);
+}
+
+.pry-btn:hover,
+.sec-btn:hover {
+    background-color: var(--accent);
+}
+
+.pry-btn:active,
+.sec-btn:active {
+    background-color: var(--text);
+    color: var(--bg);
+}
+
+.sec-btn {
+    background-color: var(--secondary);
+}
+
+.txt-btn {
+    background: none;
+    color: var(--primary);
+    transition: color 0.5s ease-in-out;
+    font-size: 1rem;
+}
+
+.txt-btn:hover {
+    background: none;
+    color: var(--secondary);
+}
+
+@media screen and (min-width: 480px) {
+
+    .pry-btn,
+    .sec-btn {
+        font-size: 1.5rem;
+    }
+
+    .txt-btn {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .pry-btn,
+    .sec-btn {
+        font-size: 1.7rem;
+    }
+
+    .txt-btn {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+
+    .pry-btn,
+    .sec-btn {
+        font-size: 2rem;
+    }
+
+    .txt-btn {
+        font-size: 1.7rem;
+    }
+}

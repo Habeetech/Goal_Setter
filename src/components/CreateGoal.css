@@ -1,0 +1,58 @@
+.create-goal-wrapper {
+    width: 100%;
+    padding: 5rem 2.5rem 0;
+}
+
+.create-goal {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.create-goal-text {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.form-nav-btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 2em 0 1em;
+    
+}
+
+.form-nav-btns .form-nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    color: var(--text);
+}
+
+.form-nav-btns .form-nav-btn:hover {
+    transform: scale(1.1);
+}
+.form-nav-btns button.form-nav-btn:disabled, button.create-goal-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+}
+.create-goal-btn {
+    background-color: var(--primary);
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    transition: background-color 0.5s ease-in-out;
+    border-radius: 10px;
+}
+.create-goal-btn:hover {
+    background-color: var(--accent);
+}
+.create-goal-btn:active {
+    background-color: var(--text);
+    color: var(--bg);
+}

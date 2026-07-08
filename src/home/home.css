@@ -1,0 +1,104 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    font-size: 1rem;
+    width: 100vw;
+    height: 100vh;
+}
+
+.headers {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 1.5em;
+}
+
+.top-btns {
+    display: flex;
+    justify-content: right;
+    gap: 1.5em;
+}
+
+.goals-list-container h2,
+.settings-container h2 {
+    padding: 0 1em;
+}
+
+.goals-list-container,
+.settings-container {
+    background-color: var(--surface);
+    padding: 1em 0;
+}
+
+.goals-list,
+.settings {
+    padding: 0 1em;
+
+}
+
+.goal {
+    display: flex;
+    gap: 1em;
+    background-color: var(--surface-alt);
+    padding: 0.2em;
+}
+
+.goal:nth-child(even) {
+    background-color: var(--surface);
+}
+
+.goal-completed {
+    display: flex;
+    gap: 1em;
+    color: var(--success);
+    background-color: var(--surface-alt);
+    padding: 0.2em;
+}
+
+.goal-failed {
+    display: flex;
+    gap: 1em;
+    color: var(--error);
+    padding: 0.2em;
+    background-color: var(--surface-alt);
+}
+
+.goal>*,
+.goal-completed>*,
+.goal-failed>* {
+    flex: 1;
+}
+
+.goal> :first-child,
+.goal-completed> :first-child,
+.goal-failed> :first-child {
+    flex: 2;
+}
+
+.action-btns {
+    display: flex;
+    justify-content: right;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 480px) {
+    .home {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .home {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .home {
+        font-size: 2rem;
+    }
+}

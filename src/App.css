@@ -1,22 +1,96 @@
 .app-shell {
-  min-height: 100vh;
-  --primary: #2563EB;
-  --secondary: #1D4ED8;
-  --accent: #38BDF8;
-  --bg: #F8FAFC;
+  --primary: #15803D;
+  --secondary: #22C55E;
+  --accent: #86EFAC;
+
+  --bg: #F7FEE7;
   --surface: #FFFFFF;
-  --text: #0F172A;
-  --muted: #64748B;
+  --surface-alt: #F0FDF4;
+  --text: #1F2937;
+  --text-muted: #6B7280;
+  --border: #D1D5DB;
+
+  --success: #16A34A;
+  --success-bg: #DCFCE7;
+
+  --warning: #D97706;
+  --warning-bg: #FEF3C7;
+
+  --error: #DC2626;
+  --error-bg: #FEE2E2;
+
+  --info: #2563EB;
+  --info-bg: #DBEAFE;
+
   background-color: var(--bg);
   color: var(--text);
+  font-size: 1.2rem;
 }
 
 .app-shell.dark {
-  --primary: #3B82F6;
-  --secondary: #60A5FA;
-  --accent: #7DD3FC;
+  --primary: #4ADE80;
+  --secondary: #22C55E;
+  --accent: #166534;
+
+
   --bg: #0F172A;
-  --surface: #111827;
-  --text: #F8FAFC;
-  --muted: #94A3B8;
+  --surface: #1E293B;
+  --surface-alt: #0F1C2E;
+  --text: #ECFDF5;
+  --text-muted: #9CA3AF;
+  --border: #334155;
+
+  --success: #4ADE80;
+  --success-bg: #1A2E1F;
+
+  --warning: #FBBF24;
+  --warning-bg: #3A2E0A;
+
+  --error: #F87171;
+  --error-bg: #3B0D0D;
+
+  --info: #60A5FA;
+  --info-bg: #1E3A5F;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: color-mix(in srgb, var(--bg) 10%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.overlay-child {
+  margin: 0 5rem;
+  width: clamp(100px, 100%, 600px);
+  min-height: 150px;
+  border: 2px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: var(--surface-alt);
+  border-radius: 10px;
+}
+.close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: none;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+  color: var(--text);
+  cursor: pointer;
+}
+.close:hover {
+  transform: scale(1.1);
+}
+.error {
+  color: var(--error);
 }
