@@ -170,12 +170,14 @@ export default function CreateGoal({ onClose, setGoals }) {
                     onBlur={(e) => e.target.focus()}
                     autofocus={true}
                 />
+                <span className="action-btns">
                 <TextButton
                     onClick={handleCheckpointSave}
                 >Save</TextButton>
                 <TextButton
                     onClick={() => { setOpenCheckpointForm(false); setStep(5) }}
                 >Discard</TextButton>
+                </span>
             </div>}
             {(goal.benchmarks.length > 0 && !openCheckpointForm) && <TextButton
                 onClick={() => setOpenCheckpointForm(true)}

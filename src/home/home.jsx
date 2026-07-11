@@ -14,6 +14,17 @@ export default function Home({ theme, toggleTheme, goals, setGoals, user }) {
     const [viewGoal, setViewGoal] = useState(null);
     const [selectionMode, setSelectionMode] = useState(false);
 
+    useEffect(() => {
+        if (viewGoal) {
+            const freshGoalCopy = goals.find(g => g.id === viewGoal.id);
+            if (freshGoalCopy) {
+                setViewGoal(freshGoalCopy);
+            } else {
+                setViewGoal(null);
+            }
+        }
+    }, [goals]);
+
     const unCompleted = goals.filter(g => {
         if (!g.deadline) return false;
         const deadline = new Date(g.deadline);
@@ -30,14 +41,18 @@ export default function Home({ theme, toggleTheme, goals, setGoals, user }) {
             {openSetGoal && <ModalOverlay
                 onClose={() => setOpenSetGoal(false)}
             ><CreateGoal
+                    key={"create-goal"}
                     onClose={() => setOpenSetGoal(false)}
                     setGoals={setGoals}
                 /></ModalOverlay>}
             {viewGoal && <ModalOverlay
                 onClose={() => setViewGoal(null)}
             >
-                <ViewGoal 
-                goal={viewGoal}
+                <ViewGoal
+                    key={viewGoal.id}
+                    goal={viewGoal}
+                    onClose={() => setViewGoal(null)}
+                    setGoals={setGoals}
                 />
             </ModalOverlay>}
 
@@ -72,7 +87,7 @@ export default function Home({ theme, toggleTheme, goals, setGoals, user }) {
                     {completed.length == 0 ? <p>You haven't completed any of your goals. Keep working on them</p> :
                         completed.map(goal => <button
                             key={goal.id}
-                             onClick={() => setViewGoal(goal)}
+                            onClick={() => setViewGoal(goal)}
                             className="goal completed">
                             <p>{goal?.name}</p>
                             <p>{formatDate(goal?.completedAt)}</p>
@@ -86,7 +101,7 @@ export default function Home({ theme, toggleTheme, goals, setGoals, user }) {
                     {unarchieved.length == 0 ? <p>No unachieved goals. Weldone!</p> :
                         unarchieved.map(goal => <button
                             key={goal.id}
-                             onClick={() => setViewGoal(goal)}
+                            onClick={() => setViewGoal(goal)}
                             className="goal failed">
                             <p>{goal?.name}</p>
                             <p>{formatDate(goal?.deadline)}</p>

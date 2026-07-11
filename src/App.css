@@ -67,8 +67,8 @@
   -webkit-backdrop-filter: blur(10px);
 }
 .overlay-child {
-  margin: 0 5rem;
-  width: clamp(100px, 100%, 600px);
+  margin: 3rem;
+  width: clamp(100px, 100%, 800px);
   min-height: 150px;
   border: 2px solid var(--border);
   display: flex;
@@ -90,6 +90,8 @@
 }
 .close:hover {
   transform: scale(1.1);
+  border: 2px solid var(--text);
+  border-radius: 10px;
 }
 .error {
   color: var(--error);

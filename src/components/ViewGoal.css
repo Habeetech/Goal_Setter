@@ -1,14 +1,15 @@
 .viewgoal {
     width: 100%;
-    padding: 1em;
+    padding: 1rem;
+    padding-right: 5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
 progress {
-    width: 0.5em;
-    height: 4em;
+    width: 0.5rem;
+    height: 3rem;
     writing-mode: vertical-lr;
     appearance: none;
 }
@@ -31,11 +32,11 @@ progress::-moz-progress-bar {
 
 .content-edit {
     display: flex;
-    gap: 4px;
 }
-
 .checkpoint-wrapper {
     padding-left: 2rem;
+    max-height: 50vh;
+    overflow-y: auto;
 }
 
 .goal-action-btns {
