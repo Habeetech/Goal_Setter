@@ -1,0 +1,22 @@
+.inputfield, .textarea-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+.inputfield .input, .textarea-field .textarea {
+    width: 100%;
+    border: none;
+    background-color: var(--surface);
+    color: var(--text);
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-radius: 15px;
+}
+ .input.error, .textarea.error {
+    border: 2px solid var(--error);
+}
+.input.error:focus, .textarea.error:focus{
+    outline: none;
+    border-color: var(--error);
+}

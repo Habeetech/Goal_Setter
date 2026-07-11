@@ -1,24 +1,22 @@
 import "./form.css"
 
-export default function InputField({name,
+export default function TextAreaField({name,
     placeholder,
     value,
     label,
     min,
     max,
     id,
-    type,
     onChange,
     required,
     error,
     onBlur,
     autofocus
 }) {
-   return(<label className="inputfield">
+   return(<label className="textarea-field">
     {label && `${label}`}
-     <input
-     className={`input ${error ? "error" : ""}`}
-        type={type}
+     <textarea
+     className={`textarea ${error ? "error" : ""}`}
         name={name}
         placeholder={placeholder}
         id={id}

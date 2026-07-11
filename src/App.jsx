@@ -4,19 +4,19 @@ import Home from './home/home.jsx'
 import { goals } from './seeds/goals.js'
 
 function App() {
- /*  const [goals, setGoals] = useState(() => {
-    const goals = window.localStorage.getItem("goals");
-    if (goals) return goals;
-
-    return [];
-  }) */
+  const [goals, setGoals] = useState(() => {
+    const goals = window.localStorage.getItem("goal");
+    return goals ? JSON.parse(goals) : [];
+  });
+  useEffect(() => {
+    window.localStorage.setItem("goal", JSON.stringify(goals));
+  }, [goals]);
   const [theme, setTheme] = useState(() => {
     const saved = window.localStorage.getItem('theme')
     if (saved) return saved
 
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : ''
   })
-const goalsSeed = goals || [];
   useEffect(() => {
     window.localStorage.setItem('theme', theme)
   }, [theme])
@@ -27,11 +27,12 @@ const goalsSeed = goals || [];
 
   return (
     <div className={`app-shell ${theme}`}>
-      <Home 
-      theme={theme} 
-      toggleTheme={toggleTheme} 
-      goals={goalsSeed} 
-      user={{}}
+      <Home
+        theme={theme}
+        toggleTheme={toggleTheme}
+        goals={goals}
+        setGoals={setGoals}
+        user={{}}
       />
     </div>
   )
