@@ -53,7 +53,7 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
     const markCheckpointHasDone = (checkpoint) => {
         const updatedBenchmarks = goal.benchmarks.map((point) => {
             if (point.id === checkpoint.id || goal.benchmarks.indexOf(point) <= goal.benchmarks.findIndex(p => p.id === checkpoint.id)) {
-                return { ...point, isDone: true, date: new Date() };
+                return { ...point, isDone: true, date: point.date || new Date() };
             }
             return point;
         });
@@ -73,7 +73,7 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
         updateGoal({ ...goal, benchmarks: updatedBenchmarks }, setGoals);
     };
     const markHasCompleted = () => {
-        const updatedBenchmarks = goal.benchmarks.map(c => ({ ...c, isDone: true, date: new Date() }));
+        const updatedBenchmarks = goal.benchmarks.map(c => ({ ...c, isDone: true, date: c.date || new Date() }));
         const updatedGoal = {
             ...goal,
             benchmarks: updatedBenchmarks,
@@ -83,6 +83,20 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
         updateGoal(updatedGoal, setGoals);
     }
     return (<div className="viewgoal">
+        <span className="action-btns">
+            {(editField !== "all" && editField === "") && <TextButton
+                onClick={() => setEditField("all")}
+            >Edit All</TextButton>}
+            {editField === "all" && <TextButton
+            onClick={handleSave}
+            >Save All</TextButton>}
+            {editField === "all" && <TextButton
+                onClick={() => setEditField("")}
+            >Discard</TextButton>}
+            {editField === "" && <TextButton
+            onClick={handleDelete}
+            >Delete Goal</TextButton>}
+        </span>
 
 
         {(editField !== "all" && editField !== "name") && <span className="content-edit">
@@ -99,14 +113,14 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
                 value={editGoal.name}
                 onChange={(e) => handleChange(e)}
             />
-            <div className="action-btns">
+            {editField !== "all" && <div className="action-btns">
                 <TextButton
                     onClick={handleSave}
                 >Save <SquarePen size="1em" /></TextButton>
                 <TextButton
                     onClick={() => setEditField("")}
                 >Discard</TextButton>
-            </div>
+            </div>}
         </span>}
 
         {(editField !== "all" && editField !== "deadline") && <span >{goal.deadline ?
@@ -129,14 +143,14 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
                 value={editGoal.deadline}
                 onChange={(e) => handleChange(e)}
             />
-            <div className="action-btns">
+            {editField !== "all" && <div className="action-btns">
                 <TextButton
                     onClick={handleSave}
                 >Save <SquarePen size="1em" /></TextButton>
                 <TextButton
                     onClick={() => setEditField("")}
                 >Discard</TextButton>
-            </div>
+            </div>}
         </span>}
 
 
@@ -159,25 +173,24 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
                 value={editGoal.description}
                 onChange={(e) => handleChange(e)}
             />
-            <div className="action-btns">
+            {editField !== "all" && <div className="action-btns">
                 <TextButton
                     onClick={handleSave}
                 >Save <SquarePen size="1em" /></TextButton>
                 <TextButton
                     onClick={() => setEditField("")}
                 >Discard</TextButton>
-            </div>
+            </div>}
         </span>}
         <span className="content-edit">
             <h3>{goal.benchmarks.length > 0 ? "Checkpoints" : "No Checkpoints"}</h3>
             {(!goal.isCompleted &&
                 !deadline &&
-                editField !== "all" &&
                 editField !== "checkpoint") && <TextButton
                     onClick={() => setEditField("checkpoint")}
                 >Add Checkpoint <SquarePen size="1em" /></TextButton>}
         </span>
-        {(editField === "checkpoint" || editField === "all") && <span className="content-edit">
+        {(editField === "checkpoint") && <span className="content-edit">
             <InputField
                 name="name"
                 value={checkpoint.name}
