@@ -6,6 +6,7 @@ import ModalOverlay from "../components/ModalOverlay.jsx"
 import CreateGoal from "../components/CreateGoal.jsx";
 import ViewGoal from "../components/ViewGoal.jsx";
 import formatDate from "../utils/formatDate.js"
+import GoalList from "../components/GoalList.jsx";
 import { SquarePen, ArrowLeftRight, List, ListX, ListCheck, Settings } from "lucide-react"
 import "./home.css"
 
@@ -65,33 +66,30 @@ export default function Home({ theme, toggleTheme, goals, setGoals, user }) {
                     <SecondaryButton onClick={toggleTheme}>Switch Theme <ArrowLeftRight size="1em" /></SecondaryButton>
                 </div>
             </section>
+
+
             <section className="goals-list-container">
                 <h2><List size="1em" /> Your Goals</h2>
                 <div className="goals-list">
                     {unCompleted.length == 0 ? <p>You haven't set any goal yet. <TextButton
                         onClick={() => setOpenSetGoal(true)}
                     >Set a new goal now</TextButton></p> :
-                        unCompleted.map(goal => <button
-                            onClick={() => setViewGoal(goal)}
-                            key={goal.id}
-                            className="goal">
-                            <p>{goal?.name}</p>
-                            <p>{formatDate(goal?.deadline)}</p>
-                        </button>)
+                        <GoalList
+                        goals={unCompleted}
+                        setViewGoal={setViewGoal}
+                        />
                     }
                 </div>
             </section>
+
             <section className="goals-list-container">
                 <h2><ListCheck size="1em" /> Achieved Goals</h2>
                 <div className="goals-list">
                     {completed.length == 0 ? <p>You haven't completed any of your goals. Keep working on them</p> :
-                        completed.map(goal => <button
-                            key={goal.id}
-                            onClick={() => setViewGoal(goal)}
-                            className="goal completed">
-                            <p>{goal?.name}</p>
-                            <p>{formatDate(goal?.completedAt)}</p>
-                        </button>)
+                       <GoalList
+                        goals={completed}
+                        setViewGoal={setViewGoal}
+                        />
                     }
                 </div>
             </section>
@@ -99,13 +97,10 @@ export default function Home({ theme, toggleTheme, goals, setGoals, user }) {
                 <h2><ListX size="1em" /> Unarchieved</h2>
                 <div className="goals-list">
                     {unarchieved.length == 0 ? <p>No unachieved goals. Weldone!</p> :
-                        unarchieved.map(goal => <button
-                            key={goal.id}
-                            onClick={() => setViewGoal(goal)}
-                            className="goal failed">
-                            <p>{goal?.name}</p>
-                            <p>{formatDate(goal?.deadline)}</p>
-                        </button>)
+                       <GoalList
+                        goals={unarchieved}
+                        setViewGoal={setViewGoal}
+                        />
                     }
                 </div>
             </section>

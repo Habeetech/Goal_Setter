@@ -83,7 +83,7 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
         updateGoal(updatedGoal, setGoals);
     }
     return (<div className="viewgoal">
-        <span className="action-btns">
+       { (!goal.isCompleted && !deadline) &&<span className="action-btns">
             {(editField !== "all" && editField === "") && <TextButton
                 onClick={() => setEditField("all")}
             >Edit All</TextButton>}
@@ -96,7 +96,7 @@ export default function ViewGoal({ goal, onClose, setGoals }) {
             {editField === "" && <TextButton
             onClick={handleDelete}
             >Delete Goal</TextButton>}
-        </span>
+        </span>}
 
 
         {(editField !== "all" && editField !== "name") && <span className="content-edit">

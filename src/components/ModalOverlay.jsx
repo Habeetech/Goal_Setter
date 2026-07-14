@@ -1,35 +1,38 @@
 import { motion } from "motion/react";
 import { X } from "lucide-react"
 import { useEffect, useRef } from "react";
+
 export default function ModalOverlay({ children, onClose }) {
     const overlayChildRef = useRef(null);
     useEffect(() => {
         document.body.style.overflow = "hidden";
         if (!overlayChildRef.current) return;
 
-        const selectors = "a[href], button, input, textarea, select, details, [tabindex]:not([tabindex='-1'])"
-        const focusable = Array.from(overlayChildRef.current.querySelectorAll(selectors))
-        
+       const selectors = "a[href]:not([tabindex='-1']), button:not([disabled]):not([tabindex='-1']), input:not([disabled]):not([tabindex='-1']), textarea:not([disabled]):not([tabindex='-1']), select:not([disabled]):not([tabindex='-1']), [tabindex]:not([tabindex='-1'])";
+        const initialFocusable = overlayChildRef.current.querySelectorAll(selectors);
+        if (initialFocusable[0]) {
+            initialFocusable[0].focus();
+        }
 
         document.addEventListener("keydown", handleKeydown)
-        if (focusable[0]) {
-            focusable[0].focus();
-        }
         function handleKeydown(e) {
-            e.preventDefault();
-            if (focusable.length <= 0) return;
+            if(e.key !== "Tab") return;
+           const focusable = Array.from(overlayChildRef.current.querySelectorAll(selectors));
+            if (focusable.length === 0) return;
 
-            const currentIndex = focusable.indexOf(document.activeElement)
+            const currentIndex = focusable.indexOf(document.activeElement);
             const lastIndex = focusable.length - 1;
-            if (e.shiftKey === true && e.key === "Tab") {
-                if (currentIndex === 0) {
+
+            e.preventDefault();
+            if (e.shiftKey) {
+                if (currentIndex === 0 || currentIndex === -1) {
                     focusable[lastIndex].focus()
                 } else {
                     focusable[currentIndex - 1].focus();
                 }
             }
-            else if (e.key === "Tab" && e.shiftKey === false) {
-                if (currentIndex === lastIndex) {
+            else {
+                if (currentIndex === lastIndex || currentIndex === -1) {
                     focusable[0].focus()
                 } else {
                     focusable[currentIndex + 1].focus();

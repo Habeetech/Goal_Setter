@@ -32,6 +32,7 @@ export default function CreateGoal({ onClose, setGoals }) {
         date: null,
         isDone: false
     });
+
     useEffect(() => {
         if (timeLeft <= 0) {
             if (step === 6) {
@@ -49,10 +50,15 @@ export default function CreateGoal({ onClose, setGoals }) {
 
     const handleCheckpointSave = () => {
         if(step === 4 && !checkpoint.name.trim()) {
-            setError("Checpoint is required");
+            setError("Checkpoint is required");
             return;
         }
-        goal.benchmarks.push({ ...checkpoint, id: checkpoint.name + new Date().toISOString() });
+
+        setGoal(prev => ({
+            ...prev,
+            benchmarks: [...prev.benchmarks, { ...checkpoint, id: checkpoint.name + new Date().toISOString() }]
+        }));
+
         setCheckpoint({
             name: "",
             date: null,
@@ -60,6 +66,7 @@ export default function CreateGoal({ onClose, setGoals }) {
         })
         setOpenCheckpointForm(false);
     }
+
     const handleGoalCreation = () => {
         const result = addGoal({
             ...goal,
@@ -67,30 +74,31 @@ export default function CreateGoal({ onClose, setGoals }) {
         }, setGoals);
 
         if (!result.ok) {
-            setMsg("Unable to save goal to the local storage. Please try again or contact support");
+            setMsg("Unable to save goal to local storage. Please try again or contact support");
         } else {
             setMsg("Goal created successfully!");
         }
 
         setStep(6);
-        setTimeLeft(10);
+        setTimeLeft(5);
     };
-
 
     const handleGoalChange = (target) => {
         setError("");
         setGoal(prev => ({ ...prev, [target.name]: target.value }));
     }
+
     const handleCheckpointChange = (target) => {
          setError("");
-        setCheckpoint(prev => ({ ...prev, [target.name]: target.value }));
+         setCheckpoint(prev => ({ ...prev, [target.name]: target.value }));
     }
+
     const handleNext = () => {
         if (step === 1 && !goal.name.trim()) {
             setError("Please enter your goal");
             return;
         } else if (step === 3 && !goal.deadline) {
-            setError("Plese set a deadline for your goal");
+            setError("Please set a deadline for your goal");
             return;
         }
         setError("");
@@ -112,8 +120,6 @@ export default function CreateGoal({ onClose, setGoals }) {
                 value={goal.name}
                 onChange={(e) => { handleGoalChange(e.target) }}
                 error={error}
-                onBlur={(e) => e.target.focus()}
-                autofocus={true}
             />
         </div>}
         {step === 2 && <div className="create-goal">
@@ -125,8 +131,6 @@ export default function CreateGoal({ onClose, setGoals }) {
                 value={goal.description}
                 onChange={(e) => { handleGoalChange(e.target) }}
                 error={error}
-                onBlur={(e) => e.target.focus()}
-                autofocus={true}
             />
         </div>}
         {step === 3 && <div className="create-goal">
@@ -140,15 +144,12 @@ export default function CreateGoal({ onClose, setGoals }) {
                 value={goal.deadline}
                 onChange={(e) => { handleGoalChange(e.target) }}
                 error={error}
-                onBlur={(e) => e.target.focus()}
-                autofocus={true}
             />
         </div>}
         {step === 4 && <div className="create-goal">
             {goal.benchmarks.length > 0 && <div className="checkpoints">
                 <p className="create-goal-text">Checkpoints</p>
-                {goal.benchmarks.map(c => (<p key={c.id}
-                className="checkpoint">
+                {goal.benchmarks.map(c => (<p key={c.id} className="checkpoint">
                     <CircleSmall />{c.name}
                 </p>))}
             </div>}
@@ -156,7 +157,6 @@ export default function CreateGoal({ onClose, setGoals }) {
             {(openCheckpointForm && goal.benchmarks.length > 0) ? <p className="create-goal-text">Add more Checkpoint</p> :
                 (goal.benchmarks.length <= 0 && openCheckpointForm) ?
                     <p className="create-goal-text">Add a Checkpoint</p> : ""}
-
 
             {openCheckpointForm && <div className="checkpoint-form">
                 <InputField
@@ -167,8 +167,6 @@ export default function CreateGoal({ onClose, setGoals }) {
                     value={checkpoint.name}
                     onChange={(e) => { handleCheckpointChange(e.target) }}
                     error={error}
-                    onBlur={(e) => e.target.focus()}
-                    autofocus={true}
                 />
                 <span className="action-btns">
                 <TextButton
@@ -199,9 +197,9 @@ export default function CreateGoal({ onClose, setGoals }) {
             <p>Goal: {goal.name}</p>
             <p>Description: {goal.description || "Not Provided"}</p>
             <p>Deadline: {formatDate(goal.deadline) || "Not Provided"}</p>
-            <p>Checkpoints: {goal.benchmarks.length > 0 ?
-                goal.benchmarks.map(c => (<p>{c.name}</p>))
-                : "No Checkpoints"}</p>
+            <div>Checkpoints: {goal.benchmarks.length > 0 ?
+                goal.benchmarks.map(c => (<p key={c.id}>{c.name}</p>)) // ✅ FIXED: Added key here
+                : "No Checkpoints"}</div>
         </div>
         }
         {!msg && <div className="form-nav-btns">
